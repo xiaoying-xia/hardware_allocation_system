@@ -113,7 +113,7 @@ const Form = ({ currentId, setCurrentId }) => {
             setProjectData({ ...projectData, tags: e.target.value })
           }
         ></TextField>
-        <div className={classes.fileInput}>
+        {/* <div className={classes.fileInput}>
           <FileBase
             type="file"
             multiple="false"
@@ -121,7 +121,7 @@ const Form = ({ currentId, setCurrentId }) => {
               setProjectData({ ...projectData, selectedFile: base64 })
             }
           ></FileBase>
-        </div>
+        </div> */}
         <Button
           className={classes.buttonSubmit}
           variant="contained"

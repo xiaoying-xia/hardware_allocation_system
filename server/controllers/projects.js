@@ -29,6 +29,7 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   const { id: _id } = req.params;
   const project = req.body;
+  console.log(req.params)
 
   // check if it's a valid id
   if (!mongoose.Types.ObjectId.isValid(_id)) {

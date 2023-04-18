@@ -77,6 +77,7 @@ const Form = ({ currentId, setCurrentId }) => {
           name="projectName"
           variant="outlined"
           label="Project Name"
+          data-testid="Project Name"
           fullWidth
           value={projectData.projectName}
           onChange={(e) =>
@@ -85,6 +86,7 @@ const Form = ({ currentId, setCurrentId }) => {
         ></TextField>
         <TextField
           name="creator"
+          data-testid="Creator"
           variant="outlined"
           label="Creator"
           fullWidth
@@ -95,6 +97,7 @@ const Form = ({ currentId, setCurrentId }) => {
         ></TextField>
         <TextField
           name="description"
+          data-testid="Description"
           variant="outlined"
           label="Description"
           fullWidth
@@ -105,6 +108,7 @@ const Form = ({ currentId, setCurrentId }) => {
         ></TextField>
         <TextField
           name="tags"
+          data-testid="Tags"
           variant="outlined"
           label="Tags"
           fullWidth

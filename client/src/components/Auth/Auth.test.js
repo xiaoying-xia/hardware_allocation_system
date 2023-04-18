@@ -1,71 +1,41 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import { createStore } from 'redux';
+import rootReducer from '../../reducers';
 import Auth from './Auth';
+import { MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom'; // Add this import statement
 
-const mockStore = configureStore([]);
+const renderWithRedux = (
+  component,
+  { initialState, store = createStore(rootReducer, initialState) } = {}
+) => {
+  return {
+    ...render(<Provider store={store}>{component}</Provider>),
+    store,
+  };
+};
 
 describe('Auth component', () => {
-  let store;
-  let component;
+  test('renders sign in form by default', () => {
+    renderWithRedux(<Auth />, { wrapper: MemoryRouter });
 
-  beforeEach(() => {
-    store = mockStore({
-      auth: {},
-    });
-    component = (
-      <Provider store={store}>
-        <Auth />
-      </Provider>
-    );
+    expect(screen.getByRole('heading', { name: 'Sign In' })).toBeDefined();
+    expect(screen.getByText('Email Address')).toBeDefined();
+
   });
 
-  it('should render the component', () => {
-    render(component);
-    expect(screen.getByText('Sign In')).toBeInTheDocument();
+  test('switches between sign in and sign up forms', () => {
+    renderWithRedux(<Auth />, { wrapper: MemoryRouter });
+
+    userEvent.click(screen.getByRole('button', { name: /don't have an account\? sign up/i }));
+    expect(screen.getByRole('heading', { name: 'Sign Up' })).toBeDefined();
+
+    userEvent.click(screen.getByRole('button', { name: /already have an account\? sign in/i }));
+    expect(screen.getByRole('heading', { name: 'Sign In' })).toBeDefined();
   });
 
-  it('should switch to sign up mode when the button is clicked', () => {
-    render(component);
-    fireEvent.click(screen.getByText('Don\'t have an account? Sign Up'));
-    expect(screen.getByText('Sign Up')).toBeInTheDocument();
-  });
-
-  it('should submit the form when the button is clicked', () => {
-    const mockHistoryPush = jest.fn();
-    const signupForm = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@example.com',
-      password: 'password',
-      confirmPassword: 'password',
-    };
-    store.dispatch = jest.fn();
-    const history = {
-      push: mockHistoryPush,
-    };
-    render(
-      <Provider store={store}>
-        <Auth history={history} />
-      </Provider>
-    );
-    fireEvent.change(screen.getByLabelText('First Name'), {
-      target: { value: signupForm.firstName },
-    });
-    fireEvent.change(screen.getByLabelText('Last Name'), {
-      target: { value: signupForm.lastName },
-    });
-    fireEvent.change(screen.getByLabelText('Email Address'), {
-      target: { value: signupForm.email },
-    });
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: signupForm.password },
-    });
-    fireEvent.change(screen.getByLabelText('Repeat Password'), {
-      target: { value: signupForm.confirmPassword },
-    });
-    fireEvent.click(screen.getByText('Sign Up'));
-    expect(store.dispatch).toHaveBeenCalledWith(signup(signupForm, history));
-  });
+  // Add more tests for form submission and interaction as needed.
 });

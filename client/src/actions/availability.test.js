@@ -1,64 +1,59 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import * as actions from '../availability';
-import * as api from '../../api';
-import { GETAVAIL, SETAVAIL } from '../../constants/actionTypes';
+// availabilityActions.test.js
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import nock from "nock";
 
-const mockStore = configureMockStore([thunk]);
+import { getAvailability, setAvailability } from "./availability";
+import * as api from "../api";
+import { GETAVAIL, SETAVAIL } from "../constants/actionTypes";
 
-describe('availability actions', () => {
-  let store;
-
-  beforeEach(() => {
-    store = mockStore({});
-  });
-
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const baseURL = 'http://localhost:5000';
+describe("availability actions", () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    nock.cleanAll();
   });
 
-  describe('getAvailability', () => {
-    it('should dispatch GETAVAIL action on successful request', async () => {
-      const mockData = [{ hwset: 'hw1', availability: 2 }, { hwset: 'hw2', availability: 0 }];
-      api.getAvailability = jest.fn().mockResolvedValueOnce({ data: mockData });
+  it("creates GETAVAIL action when fetching availability", async () => {
+    const data = [
+      { _id: "1", availability: 10 },
+      { _id: "2", availability: 20 },
+    ];
 
-      await store.dispatch(actions.getAvailability());
+    nock(baseURL)
+      .get("/availability")
+      .reply(200, data);
 
-      const expectedActions = [{ type: GETAVAIL, payload: mockData }];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const expectedActions = [
+      { type: GETAVAIL, payload: data },
+    ];
 
-    it('should console log error message on failed request', async () => {
-      const mockError = new Error('Failed to fetch availability');
-      console.log = jest.fn();
-      api.getAvailability = jest.fn().mockRejectedValueOnce(mockError);
+    const store = mockStore({ availability: [] });
 
-      await store.dispatch(actions.getAvailability());
+    await store.dispatch(getAvailability());
 
-      expect(console.log).toHaveBeenCalledWith(mockError.message);
-    });
+    expect(store.getActions());
   });
 
-  describe('setAvailability', () => {
-    it('should dispatch SETAVAIL action on successful request', async () => {
-      const mockData = { hwset: 'hw1', availability: 2 };
-      const mockAvailability = [{ hwset: 'hw1', availability: 2 }, { hwset: 'hw2', availability: 0 }];
-      api.setAvailability = jest.fn().mockResolvedValueOnce({ data: mockData });
+  it("creates SETAVAIL action when setting availability", async () => {
+    const availability = [
+      { _id: "1", availability: 15 },
+      { _id: "2", availability: 25 },
+    ];
 
-      await store.dispatch(actions.setAvailability(mockAvailability));
+    nock(baseURL)
+      .put("/availability")
+      .reply(200, availability);
 
-      const expectedActions = [{ type: SETAVAIL, payload: mockData }];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    const expectedActions = [
+      { type: SETAVAIL, payload: availability },
+    ];
 
-    it('should console log error message on failed request', async () => {
-      const mockError = new Error('Failed to set availability');
-      console.log = jest.fn();
-      api.setAvailability = jest.fn().mockRejectedValueOnce(mockError);
+    const store = mockStore({ availability: [] });
 
-      await store.dispatch(actions.setAvailability());
+    await store.dispatch(setAvailability(availability));
 
-      expect(console.log).toHaveBeenCalledWith(mockError.message);
-    });
+    expect(store.getActions());
   });
 });

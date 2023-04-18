@@ -20,8 +20,9 @@ response = requests.post('http://localhost:5000/availability',json=
       
     }])
 assert(response.status_code==201)
+print("availibility api testing passed")
 
-print("check user api")
+print("test user api")
 response = requests.post('http://localhost:5000/user/signup',json=
 {
     "email":"123.gmail.com",\
@@ -51,6 +52,7 @@ response = requests.post('http://localhost:5000/user/leave',json=
     projectId1:projectId1
 },headers={"authorization":"abc "+userToken})
 assert(response.status_code==201)
+print("user api testing passed")
 
 print("check project api")
 response = requests.get('http://localhost:5000/projects')
@@ -80,6 +82,6 @@ response = requests.patch('http://localhost:5000/projects/'+projectId3,data=
   "hw2Count": 10,
 },headers={"authorization":"abc "+userToken})
 assert(response.status_code==201)
-
+print("project api testing passed")
 
 

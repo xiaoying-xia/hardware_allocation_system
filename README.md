@@ -14,13 +14,10 @@ Please use the Sign Up page to sign up for your own account, and then use the si
 ![image](https://user-images.githubusercontent.com/54562402/232907216-44539c83-d585-4b8e-ac32-2976d2a52afb.png)
 ## Hardware Information Board
 After Login, on the main page, you could see a hardware information board in the top-right part of the website. It represents the amount of hardware that is still available in the system, which changes with checking in or checking out the operation.
-< img width="640" alt="image" src="https://user-images.githubusercontent.com/54562402/232907301-690f7fea-1658-450f-93f7-3e1f6fd596f6.png">
 ## Managing Project
 On the left part of the website, you could see different projects that already exist. Join the project before doing any check-in or check-out. Through the project board, you could also learn about the amount of hardware that is already assigned to the project.
-< img width="360" alt="image" src="https://user-images.githubusercontent.com/54562402/232907337-27e9047b-451d-4560-af87-07dca59742ad.png">
 ## Create New Project
 On the bottom-right part of the website, you’ll see a form to create a new project. Fill out the form and submit it. Then you create a new project and manage it immediately!
-< img width="360" alt="image" src="https://user-images.githubusercontent.com/54562402/232907390-044a1556-e420-4c1a-996c-4aacd96eb9c2.png">
 # FAQs
 Q: See the warning about React's version when using “npm install” to install the client?
 A: Try running “npm install --force” instead.

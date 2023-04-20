@@ -19,10 +19,17 @@ On the left part of the website, you could see different projects that already e
 On the bottom-right part of the website, you’ll see a form to create a new project. Fill out the form and submit it. Then you create a new project and manage it immediately!
 # FAQs
 Q: See the warning about React's version when using “npm install” to install the client?
+
 A: Try running “npm install --force” instead.
+
 Q: See the warning about port such as "address already in use :::5000”?
+
 A: Run "export PORT=3001" and also replace all '5000' with '3001'.
+
 Q: Security problem when using a Mac running the project?
+
 A:  See https://www.lifewire.com/fix-developer-cannot-be-verified-error-5183898 for more information about solving this issue.
+
 Q: See the following error during installation?
+
 A: Run " export NODE_OPTIONS=--openssl-legacy-provider".

@@ -2,6 +2,9 @@
 
 ## To deploy and run the project:
 
-1. cd client, run "npm install", after installation, run "npm start"
+1. cd client, run "npm install". After installation, run "npm start".
 
-2. cd server, run "npm start"
+If you see warnings about React's version, you can try "npm install --force".
+
+2. cd server, run "npm start".
+

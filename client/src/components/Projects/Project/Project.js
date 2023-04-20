@@ -65,7 +65,14 @@ const Project = ({ project, currentId, setCurrentId }) => {
   const handleCheckIn = (e) => {
     e.preventDefault(); // prevent refresh
 
-    if (text1 > hw1 || text2 > hw2) {
+    if (
+      text1 === "" ||
+      text2 === "" ||
+      isNaN(text1) ||
+      isNaN(text2) ||
+      parseInt(text1) > hw1 ||
+      parseInt(text2) > hw2
+    ) {
       alert("Invalid Amount!");
       return;
     }
@@ -99,7 +106,12 @@ const Project = ({ project, currentId, setCurrentId }) => {
 
   const handleCheckOut = (e) => {
     e.preventDefault(); // prevent refresh
+    // console.log(typeof text1 + "" + text1);
     if (
+      text1 === "" ||
+      text2 === "" ||
+      isNaN(text1) ||
+      isNaN(text2) ||
       projectData.hw1Count - parseInt(text1) < 0 ||
       projectData.hw2Count - parseInt(text2) < 0
     ) {
@@ -203,7 +215,7 @@ const Project = ({ project, currentId, setCurrentId }) => {
           color="primary"
           onClick={handleCheckIn}
         >
-          Check in
+          Check out
         </Button>
       );
     } else {
@@ -215,7 +227,7 @@ const Project = ({ project, currentId, setCurrentId }) => {
           onClick={handleCheckIn}
           disabled
         >
-          Check in
+          Check out
         </Button>
       );
     }
@@ -230,7 +242,7 @@ const Project = ({ project, currentId, setCurrentId }) => {
           color="primary"
           onClick={handleCheckOut}
         >
-          Check out
+          Check in
         </Button>
       );
     } else {
@@ -242,7 +254,7 @@ const Project = ({ project, currentId, setCurrentId }) => {
           onClick={handleCheckOut}
           disabled
         >
-          Check out
+          Check in
         </Button>
       );
     }

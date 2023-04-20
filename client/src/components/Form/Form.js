@@ -15,6 +15,8 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
 
+  const projects = useSelector((state) => state.projects); // current projects
+
   const user = JSON.parse(localStorage.getItem("profile"));
 
   // get the return value of the reducer
@@ -35,6 +37,15 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // prevent refresh
+    // check if tags are unique
+    console.log(projects);
+    console.log(String(projectData["tags"]));
+    for (let proj of projects) {
+      if (String(projectData["tags"]) === String(proj["tags"])) {
+        alert("Project ID must be unique!");
+        return;
+      }
+    }
 
     if (currentId) {
       // if getting here by update
@@ -106,7 +117,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Unique ID"
           fullWidth
           value={projectData.tags}
           onChange={(e) =>

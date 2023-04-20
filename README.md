@@ -10,8 +10,7 @@ For questions met during getting started, read the FAQs part for more informatio
 The Hardware Allocation System supports different kinds of features:
 ## Login/Sign Up
 Please use the Sign Up page to sign up for your own account, and then use the sign-in page to login into your account before being able to use our Hardware Allocation system.
-![image](https://user-images.githubusercontent.com/54562402/232907226-412495fc-cdc5-45fb-bbe9-92487f04a0b0.png)
-![image](https://user-images.githubusercontent.com/54562402/232907216-44539c83-d585-4b8e-ac32-2976d2a52afb.png)
+
 ## Hardware Information Board
 After Login, on the main page, you could see a hardware information board in the top-right part of the website. It represents the amount of hardware that is still available in the system, which changes with checking in or checking out the operation.
 ## Managing Project
@@ -26,5 +25,4 @@ A: Run "export PORT=3001" and also replace all '5000' with '3001'.
 Q: Security problem when using a Mac running the project?
 A:  See https://www.lifewire.com/fix-developer-cannot-be-verified-error-5183898 for more information about solving this issue.
 Q: See the following error during installation?
-![image](https://user-images.githubusercontent.com/54562402/232907452-ad0a8bba-5f29-47b1-b61f-18f76ee6e2a9.png)
 A: Run " export NODE_OPTIONS=--openssl-legacy-provider".
